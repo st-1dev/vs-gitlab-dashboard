@@ -1,0 +1,136 @@
+{
+  "name": "gitlab-dashboard",
+  "displayName": "GitLab Dashboard",
+  "description": "Статусы и запуск GitLab pipeline, логи jobs, сохраняемые фильтры и прогноз завершения по предыдущим запускам.",
+  "version": "0.2.0",
+  "publisher": "local-tools",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "gitlab",
+    "pipeline",
+    "ci"
+  ],
+  "main": "./src/extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Подключение к GitLab задаётся в .vscode/gitlab-dashboard.json. Откройте доверенную папку проекта."
+    },
+    "virtualWorkspaces": {
+      "supported": "limited",
+      "description": "Локальные Git-репозитории недоступны; используйте избранные проекты."
+    }
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitlabDashboard",
+          "title": "GitLab Dashboard",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gitlabDashboard": [
+        {
+          "type": "webview",
+          "id": "gitlabDashboard.view",
+          "name": "Pipelines"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitlabDashboard.show",
+        "title": "Открыть панель",
+        "category": "GitLab Dashboard"
+      },
+      {
+        "command": "gitlabDashboard.configure",
+        "title": "Настроить подключение",
+        "category": "GitLab Dashboard",
+        "icon": "$(plug)"
+      },
+      {
+        "command": "gitlabDashboard.addProject",
+        "title": "Добавить проект",
+        "category": "GitLab Dashboard",
+        "icon": "$(add)"
+      },
+      {
+        "command": "gitlabDashboard.refresh",
+        "title": "Обновить проекты",
+        "category": "GitLab Dashboard",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "gitlabDashboard.runPipeline",
+        "title": "Запустить pipeline",
+        "category": "GitLab Dashboard",
+        "icon": "$(play)"
+      },
+      {
+        "command": "gitlabDashboard.openSettings",
+        "title": "Настройки",
+        "category": "GitLab Dashboard",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gitlabDashboard.runPipeline",
+          "when": "view == gitlabDashboard.view",
+          "group": "navigation@1"
+        },
+        {
+          "command": "gitlabDashboard.refresh",
+          "when": "view == gitlabDashboard.view",
+          "group": "navigation@2"
+        },
+        {
+          "command": "gitlabDashboard.addProject",
+          "when": "view == gitlabDashboard.view",
+          "group": "navigation@3"
+        },
+        {
+          "command": "gitlabDashboard.configure",
+          "when": "view == gitlabDashboard.view",
+          "group": "navigation@4"
+        },
+        {
+          "command": "gitlabDashboard.openSettings",
+          "when": "view == gitlabDashboard.view",
+          "group": "navigation@5"
+        }
+      ]
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": "/.vscode/gitlab-dashboard.json",
+        "url": "./schemas/gitlab-dashboard.schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "check": "for f in src/*.js media/*.js test/*.js; do node --check \"$f\" || exit 1; done",
+    "test": "node --test",
+    "package": "vsce package --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.2"
+  }
+}

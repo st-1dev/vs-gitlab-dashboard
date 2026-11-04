@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GitLab Dashboard",
+  "type": "object",
+  "required": ["url", "token"],
+  "additionalProperties": false,
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "HTTPS-адрес GitLab, например https://gitlab.company.ru. Подкаталог установки поддерживается.",
+      "default": ""
+    },
+    "token": {
+      "type": "string",
+      "description": "Personal Access Token со scope api. Файл содержит секрет: добавьте .vscode/gitlab-dashboard.json в .gitignore.",
+      "default": ""
+    },
+    "favorites": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Избранные проекты: URL или group/project."
+    },
+    "refreshSeconds": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 3600,
+      "default": 15,
+      "description": "Интервал обновления таблицы, логов и мониторинга в секундах."
+    },
+    "savedQueries": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Сохранённые поисковые запросы: название → запрос."
+    }
+  }
+}
