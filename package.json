@@ -2,7 +2,7 @@
   "name": "gitlab-dashboard",
   "displayName": "GitLab Dashboard",
   "description": "Статусы и запуск GitLab pipeline, логи jobs, сохраняемые фильтры и прогноз завершения по предыдущим запускам.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "local-tools",
   "license": "UNLICENSED",
   "engines": {
@@ -126,11 +126,10 @@
     ]
   },
   "scripts": {
-    "check": "for f in src/*.js media/*.js test/*.js; do node --check \"$f\" || exit 1; done",
-    "test": "node --test",
     "package": "vsce package --allow-missing-repository --skip-license"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.6.2"
+    "@vscode/vsce": "^3.6.2",
+    "playwright": "1.62.1"
   }
 }

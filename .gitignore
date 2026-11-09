@@ -1,4 +1,5 @@
 node_modules/
 *.vsix
 .vscode/gitlab-dashboard.json
-.agents/logs/
+.idea/
+.vscode/
